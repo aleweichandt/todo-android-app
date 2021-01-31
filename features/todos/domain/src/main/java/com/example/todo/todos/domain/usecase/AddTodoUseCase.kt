@@ -7,11 +7,11 @@ import com.example.todo.todos.domain.repository.TodoRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
-class GetAllTodosUseCase(
+class AddTodoUseCase(
     private val repository: TodoRepository,
     handler: IExceptionHandler,
     dispatcher: CoroutineDispatcher = Dispatchers.IO
-) : UseCase<Boolean, List<Todo>>(handler, dispatcher) {
-    override suspend fun performAction(param: Boolean): Result<List<Todo>> =
-        repository.getAllTodos()?.let { Result.Success(it) } ?: Result.Failure()
+) : UseCase<Todo, Boolean>(handler, dispatcher) {
+    override suspend fun performAction(param: Todo): Result<Boolean> =
+        repository.addTodo(param)?.let { Result.Success(it) } ?: Result.Failure()
 }
