@@ -1,0 +1,9 @@
+include ':app',
+        ':baseDomain',
+        ':baseView'
+rootProject.name = "Todo"
+
+// Libs
+// Base
+project(':baseDomain').projectDir = new File('libs/base/domain')
+project(':baseView').projectDir = new File('libs/base/view')
