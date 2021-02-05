@@ -1,7 +1,8 @@
 include ':app',
         ':baseDomain',
         ':baseView',
-        ':todosDomain'
+        ':todosDomain',
+        ':todosView'
 rootProject.name = "Todo"
 
 // Libs
@@ -12,4 +13,5 @@ project(':baseView').projectDir = new File('libs/base/view')
 // Features
 // Todos
 project(':todosDomain').projectDir = new File('features/todos/domain')
+project(':todosView').projectDir = new File('features/todos/view')
 
