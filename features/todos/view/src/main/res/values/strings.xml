@@ -1,4 +1,7 @@
 <resources>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="todo_list_title">My TODOs</string>
+    <string name="todo_form_title">Add new TODO</string>
+    <string name="todo_form_field_title_placeholder">Title</string>
+    <string name="todo_form_field_body_placeholder">Body</string>
+    <string name="button_submit">Submit</string>
 </resources>

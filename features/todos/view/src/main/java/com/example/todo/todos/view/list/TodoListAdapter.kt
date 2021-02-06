@@ -14,7 +14,7 @@ class TodoListAdapter : ListAdapter<Todo, TodoListAdapter.TodoViewHolder>(TodoDi
             oldItem == newItem
 
         override fun areContentsTheSame(oldItem: Todo, newItem: Todo): Boolean =
-            oldItem.value == newItem.value
+            oldItem.uuid == newItem.uuid
 
     }
 

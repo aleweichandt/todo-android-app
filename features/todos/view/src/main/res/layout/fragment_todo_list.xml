@@ -26,7 +26,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/list_item_todo" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <com.google.android.material.appbar.AppBarLayout
@@ -36,7 +37,7 @@
             <com.google.android.material.appbar.MaterialToolbar
                 android:layout_width="match_parent"
                 android:layout_height="?android:actionBarSize"
-                app:title="TESSSSSTST" />
+                app:title="@string/todo_list_title" />
 
         </com.google.android.material.appbar.AppBarLayout>
 

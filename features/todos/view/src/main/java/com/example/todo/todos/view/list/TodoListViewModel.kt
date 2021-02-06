@@ -15,10 +15,14 @@ import javax.inject.Inject
 @HiltViewModel
 class TodoListViewModel @Inject constructor(
     private val getAllTodosUseCase: GetAllTodosUseCase
-) : ViewModel() , SwipeRefreshLayout.OnRefreshListener {
+) : ViewModel(), SwipeRefreshLayout.OnRefreshListener {
     private val _todos = MutableLiveData<List<Todo>>()
     val todos: LiveData<List<Todo>>
         get() = _todos
+
+    private val _refreshing = MutableLiveData<Boolean>(false)
+    val refreshing: LiveData<Boolean>
+        get() = _refreshing
 
     fun onViewCreated() {
         refresh()
@@ -30,11 +34,13 @@ class TodoListViewModel @Inject constructor(
 
     private fun refresh(force: Boolean = false) {
         viewModelScope.launch {
+            _refreshing.value = true
             when (val response = getAllTodosUseCase(force)) {
                 is Result.Success -> _todos.value = response.result
                 else -> { //TODO handle error
                 }
             }
+            _refreshing.value = false
         }
     }
 }

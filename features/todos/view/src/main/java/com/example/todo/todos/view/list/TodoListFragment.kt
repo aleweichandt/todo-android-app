@@ -8,34 +8,41 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.todo.todos.view.databinding.FragmentTodoListBinding
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.scopes.FragmentScoped
 
-/**
- * A simple [Fragment] subclass.
- * Use the [TodoListFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 @AndroidEntryPoint
 class TodoListFragment : Fragment() {
-    private val viewModel by viewModels<TodoListViewModel>() //TODO init
+    private val viewModel by viewModels<TodoListViewModel>()
+
+    private val adapter by lazy { TodoListAdapter() }
+
+    private lateinit var bindings: FragmentTodoListBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val bindings = FragmentTodoListBinding.inflate(inflater, container, false)
+        bindings = FragmentTodoListBinding.inflate(inflater, container, false)
         bindings.viewModel = viewModel
-        with(bindings.todoList) {
-            adapter = TodoListAdapter()
-        }
+        bindings.lifecycleOwner = viewLifecycleOwner
+        bindings.todoList.adapter = adapter
         with(bindings.swipeRefresh) {
             setOnRefreshListener(viewModel)
         }
+        observeViewModel()
         return bindings.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.onViewCreated()
+    }
+
+    private fun observeViewModel() {
+        viewModel.todos.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
+        viewModel.refreshing.observe(viewLifecycleOwner) {
+            bindings.swipeRefresh.isRefreshing = it
+        }
     }
 }
