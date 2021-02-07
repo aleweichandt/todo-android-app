@@ -13,7 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class TodoListFragment : Fragment() {
     private val viewModel by viewModels<TodoListViewModel>()
 
-    private val adapter by lazy { TodoListAdapter() }
+    private val adapter by lazy { TodoListAdapter(viewModel) }
 
     private lateinit var bindings: FragmentTodoListBinding
 

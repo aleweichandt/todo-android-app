@@ -8,6 +8,10 @@
         <variable
             name="item"
             type="com.example.todo.todos.domain.model.Todo" />
+
+        <variable
+            name="itemCallback"
+            type="com.example.todo.todos.view.list.TodoListAdapter.TodoItemCallback" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

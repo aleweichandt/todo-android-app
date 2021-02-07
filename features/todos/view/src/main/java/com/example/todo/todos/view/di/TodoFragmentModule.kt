@@ -1,6 +1,7 @@
 package com.example.todo.todos.view.di
 
 import com.example.todo.todos.domain.usecase.GetAllTodosUseCase
+import com.example.todo.todos.domain.usecase.SetTodoCompletionUseCase
 import com.example.todo.todos.view.list.TodoListViewModel
 import dagger.Module
 import dagger.Provides
@@ -14,6 +15,7 @@ object TodoFragmentModule {
     @Provides
     @ViewModelScoped
     fun bindsTodoListViewModel(
-        getAllTodosUseCase: GetAllTodosUseCase
-    ) = TodoListViewModel(getAllTodosUseCase)
+        getAllTodosUseCase: GetAllTodosUseCase,
+        setTodoCompletionUseCase: SetTodoCompletionUseCase
+    ) = TodoListViewModel(getAllTodosUseCase, setTodoCompletionUseCase)
 }

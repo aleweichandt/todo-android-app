@@ -5,6 +5,7 @@ import com.example.todo.todos.domain.repository.TodoRepository
 import com.example.todo.todos.domain.usecase.AddTodoUseCase
 import com.example.todo.todos.domain.usecase.DeleteTodoUseCase
 import com.example.todo.todos.domain.usecase.GetAllTodosUseCase
+import com.example.todo.todos.domain.usecase.SetTodoCompletionUseCase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -26,4 +27,8 @@ class TodoUseCaseModule {
     @Provides
     fun provideDeleteTodoUseCase(repository: TodoRepository, handler: IExceptionHandler) =
         DeleteTodoUseCase(repository, handler)
+
+    @Provides
+    fun provideSetTodoCompletionUseCase(repository: TodoRepository, handler: IExceptionHandler) =
+        SetTodoCompletionUseCase(repository, handler)
 }

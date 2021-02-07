@@ -16,4 +16,15 @@ class TodoRepository {
 
     suspend fun deleteTodo(todo: Todo): Boolean? =
         todos.remove(todo)
+
+    suspend fun updateTodo(todo: Todo, update: Todo): Boolean? =
+        when (val index = todos.indexOf(todo)) {
+            -1 -> false
+            else -> {
+                todos.removeAt(index)
+                todos.add(index, update)
+                true
+            }
+        }
+
 }
