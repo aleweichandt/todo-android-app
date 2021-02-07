@@ -11,6 +11,8 @@ class TodoRepository {
 
     suspend fun getAllTodos(): List<Todo>? = todos
 
+    suspend fun getTodoById(id: Long): Todo? = todos.find { it.uuid == id }
+
     suspend fun addTodo(todo: Todo): Boolean? =
         todos.add(todo)
 

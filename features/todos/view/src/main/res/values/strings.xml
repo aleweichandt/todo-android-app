@@ -1,7 +1,9 @@
 <resources>
     <string name="todo_list_title">My TODOs</string>
     <string name="todo_form_title">Add new TODO</string>
+    <string name="todo_details_title">Details</string>
     <string name="todo_field_title_placeholder">Title</string>
     <string name="todo_field_body_placeholder">Body</string>
     <string name="button_submit">Submit</string>
+    <string name="button_delete">Delete</string>
 </resources>

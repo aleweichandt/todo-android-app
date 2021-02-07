@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".details.TodoDetailsFragment">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vieWModel"
+            type="com.example.todo.todos.view.details.TodoDetailsViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/todo_title_key"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/todo_field_title_placeholder"
+                    android:textAppearance="?textAppearanceHeadline5"
+                    app:layout_constraintBottom_toTopOf="@id/todo_title_value"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/todo_title_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="@{vieWModel.todo.value}"
+                    android:textAppearance="?textAppearanceBody1"
+                    app:layout_constraintBottom_toTopOf="@id/todo_body_key"
+                    app:layout_constraintTop_toBottomOf="@id/todo_title_key" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/todo_body_key"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/todo_field_body_placeholder"
+                    android:textAppearance="?textAppearanceHeadline5"
+                    app:layout_constraintBottom_toTopOf="@id/todo_body_value"
+                    app:layout_constraintTop_toBottomOf="@id/todo_title_value" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/todo_body_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@{vieWModel.todo.body}"
+                    android:textAppearance="?textAppearanceBody1"
+                    app:layout_constraintTop_toBottomOf="@id/todo_body_key" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="@{vieWModel.readyToDelete}"
+                    android:onClick="@{() -> vieWModel.onDelete()}"
+                    android:paddingBottom="8dp"
+                    android:text="@string/button_delete"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
+                android:layout_height="?android:actionBarSize"
+                app:title="@string/todo_details_title" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>
