@@ -4,6 +4,7 @@ import java.io.Serializable
 
 data class Todo(
     val value: String = "",
+    val body: String = "",
     val completed: Boolean = false,
     val uuid: Long = nextUuid
 ) : Serializable {

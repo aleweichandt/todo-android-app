@@ -5,8 +5,8 @@ import com.example.todo.todos.domain.model.Todo
 class TodoRepository {
     // TODO remove mock
     private val todos: MutableList<Todo> = mutableListOf(
-        Todo("mock"),
-        Todo("mock completed", true)
+        Todo("mock", "testt"),
+        Todo("mock completed", "test", true)
     )
 
     suspend fun getAllTodos(): List<Todo>? = todos
