@@ -38,6 +38,7 @@ dependencies {
     implementation "androidx.core:core-ktx:$core_version"
     implementation "androidx.appcompat:appcompat:$compat_version"
     implementation "com.google.android.material:material:$material_version"
+
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

@@ -4,6 +4,7 @@
     <string name="todo_details_title">Details</string>
     <string name="todo_field_title_placeholder">Title</string>
     <string name="todo_field_body_placeholder">Body</string>
+    <string name="menu_add">Add</string>
     <string name="button_submit">Submit</string>
     <string name="button_delete">Delete</string>
 </resources>
