@@ -9,14 +9,14 @@
         android:name="com.example.todo.todos.view.list.TodoListFragment"
         android:label="TodoListFragment">
         <action
-            android:id="@+id/action_todoListFragment_to_todoFormFragment"
+            android:id="@+id/action_to_form"
             app:destination="@id/todoFormFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
-            android:id="@+id/action_todoListFragment_to_todoDetailsFragment"
+            android:id="@+id/action_to_details"
             app:destination="@id/todoDetailsFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"

@@ -6,18 +6,29 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.todo.base.domain.UseCase.Result
+import com.example.todo.base.view.navigation.fragment.IRoutedViewModel
+import com.example.todo.base.view.navigation.fragment.RoutedViewModelDelegate
 import com.example.todo.todos.domain.model.Todo
 import com.example.todo.todos.domain.usecase.GetAllTodosUseCase
 import com.example.todo.todos.domain.usecase.SetTodoCompletionUseCase
+import com.example.todo.todos.view.list.ITodoListRouter.TodoListRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class TodoListViewModel @Inject constructor(
+class TodoListViewModel(
     private val getAllTodosUseCase: GetAllTodosUseCase,
-    private val setTodoCompletionUseCase: SetTodoCompletionUseCase
-) : ViewModel(), SwipeRefreshLayout.OnRefreshListener, TodoListAdapter.TodoItemCallback {
+    private val setTodoCompletionUseCase: SetTodoCompletionUseCase,
+    private val routerDelegate: RoutedViewModelDelegate<TodoListRoute> = RoutedViewModelDelegate()
+) : ViewModel(), SwipeRefreshLayout.OnRefreshListener, TodoListAdapter.TodoItemCallback,
+    IRoutedViewModel by routerDelegate {
+    @Inject
+    constructor(
+        getAllTodosUseCase: GetAllTodosUseCase,
+        setTodoCompletionUseCase: SetTodoCompletionUseCase
+    ) : this(getAllTodosUseCase, setTodoCompletionUseCase, RoutedViewModelDelegate())
+
     private val _todos = MutableLiveData<List<Todo>>()
     val todos: LiveData<List<Todo>>
         get() = _todos
@@ -35,7 +46,7 @@ class TodoListViewModel @Inject constructor(
     }
 
     override fun onItemSelected(item: Todo) {
-        // TODO navigate to details
+        routerDelegate.pushRoute(TodoListRoute.DetailsRoute(item.uuid))
     }
 
     override fun onItemCompletionChanged(item: Todo, completion: Boolean) {

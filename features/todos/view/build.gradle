@@ -44,7 +44,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$compat_version"
     implementation "com.google.android.material:material:$material_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
-    
+
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewmodel_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$viewmodel_version"
 
@@ -57,6 +57,7 @@ dependencies {
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 
     implementation project(':todosDomain')
+    implementation project(':baseView')
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

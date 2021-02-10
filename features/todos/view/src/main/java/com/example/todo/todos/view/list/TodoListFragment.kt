@@ -5,15 +5,20 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.todo.base.view.navigation.fragment.StackFragment
+import com.example.todo.base.view.navigation.route.IRoute
 import com.example.todo.todos.view.R
 import com.example.todo.todos.view.databinding.FragmentTodoListBinding
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class TodoListFragment : Fragment() {
-    private val viewModel by viewModels<TodoListViewModel>()
+class TodoListFragment : StackFragment() {
+    @Inject
+    override lateinit var router: ITodoListRouter
+
+    override val viewModel by viewModels<TodoListViewModel>()
 
     private val adapter by lazy { TodoListAdapter(viewModel) }
 
@@ -31,13 +36,13 @@ class TodoListFragment : Fragment() {
             setOnRefreshListener(viewModel)
         }
         bindings.toolbar.setOnMenuItemClickListener { onOptionsItemSelected(it) }
-        observeViewModel()
         return bindings.root
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menu_item_add_todo) {
             // TODO navigate to form
+            navigate(ITodoListRouter.TodoListRoute.FormRoute)
             return true
         }
         return super.onOptionsItemSelected(item)
@@ -45,7 +50,15 @@ class TodoListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observeViewModel()
         viewModel.onViewCreated()
+    }
+
+    override fun navigate(route: IRoute) {
+        when (route) {
+            is ITodoListRouter.TodoListRoute -> router.push(this, route)
+            else -> super.navigate(route)
+        }
     }
 
     private fun observeViewModel() {

@@ -6,6 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.todo.base.domain.UseCase.Result
+import com.example.todo.base.view.navigation.fragment.IRoutedViewModel
+import com.example.todo.base.view.navigation.fragment.RoutedViewModelDelegate
+import com.example.todo.base.view.navigation.route.IRoute
 import com.example.todo.todos.domain.model.Todo
 import com.example.todo.todos.domain.usecase.DeleteTodoUseCase
 import com.example.todo.todos.domain.usecase.GetTodoByIdUseCase
@@ -14,10 +17,16 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class TodoDetailsViewModel @Inject constructor(
+class TodoDetailsViewModel(
     private val getTodoByIdUseCase: GetTodoByIdUseCase,
-    private val deleteTodoUseCase: DeleteTodoUseCase
-) : ViewModel(), SwipeRefreshLayout.OnRefreshListener {
+    private val deleteTodoUseCase: DeleteTodoUseCase,
+    private val routerDelegate: RoutedViewModelDelegate<IRoute> = RoutedViewModelDelegate()
+) : ViewModel(), SwipeRefreshLayout.OnRefreshListener, IRoutedViewModel by routerDelegate {
+    @Inject
+    constructor(
+        getTodoByIdUseCase: GetTodoByIdUseCase,
+        deleteTodoUseCase: DeleteTodoUseCase
+    ) : this(getTodoByIdUseCase, deleteTodoUseCase, RoutedViewModelDelegate())
 
     private var uuid: Long? = null
 
@@ -45,7 +54,7 @@ class TodoDetailsViewModel @Inject constructor(
     fun onDelete() {
         viewModelScope.launch {
             when (val response = deleteTodoUseCase(_todo.value!!)) {
-                is Result.Success -> Unit //TODO navigate back
+                is Result.Success -> routerDelegate.popRoute()
                 else -> Unit // TODO display error
             }
         }
