@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.example.todo.base.view.lifecycle.consume
 import com.example.todo.base.view.navigation.fragment.StackFragment
+import com.example.todo.base.view.navigation.route.IRoute
 import com.example.todo.todos.view.databinding.FragmentTodoDetailsBinding
+import com.example.todo.todos.view.details.ITodoDetailsRouter.TodoDetailsRoute
+
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -39,6 +41,13 @@ class TodoDetailsFragment : StackFragment() {
         super.onViewCreated(view, savedInstanceState)
         observeViewModel()
         viewModel.onViewCreated(args.uuid)
+    }
+
+    override fun navigate(route: IRoute) {
+        when (route) {
+            is TodoDetailsRoute -> router.pushForResult(this, route, viewModel::onDeleteResult)
+            else -> super.navigate(route)
+        }
     }
 
     private fun observeViewModel() {

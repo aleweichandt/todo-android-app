@@ -41,7 +41,6 @@ class TodoListFragment : StackFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menu_item_add_todo) {
-            // TODO navigate to form
             navigate(ITodoListRouter.TodoListRoute.FormRoute)
             return true
         }

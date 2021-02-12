@@ -7,4 +7,8 @@
     <string name="menu_add">Add</string>
     <string name="button_submit">Submit</string>
     <string name="button_delete">Delete</string>
+    <string name="button_yes">Yes</string>
+    <string name="button_no">No</string>
+    <string name="todo_delete_confirm_title">Delete todo</string>
+    <string name="todo_delete_confirm_body">You are about to delete this TODO.\nAre you sure you want to continue?</string>
 </resources>

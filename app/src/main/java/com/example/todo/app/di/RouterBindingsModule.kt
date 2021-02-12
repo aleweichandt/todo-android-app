@@ -1,7 +1,9 @@
 package com.example.todo.app.di
 
 import com.example.todo.app.navigation.AppRouter
+import com.example.todo.app.navigation.DetailsRouter
 import com.example.todo.todos.view.details.ITodoDetailsRouter
+import com.example.todo.todos.view.details.dialog.IDeleteTodoRouter
 import com.example.todo.todos.view.form.ITodoFormRouter
 import com.example.todo.todos.view.list.ITodoListRouter
 import dagger.Binds
@@ -19,6 +21,9 @@ abstract class RouterBindingsModule {
     abstract fun bindTodoFormRouter(appRouter: AppRouter): ITodoFormRouter
 
     @Binds
-    abstract fun bindTodoDetailsRouter(appRouter: AppRouter): ITodoDetailsRouter
+    abstract fun bindTodoDetailsRouter(detailsRouter: DetailsRouter): ITodoDetailsRouter
+
+    @Binds
+    abstract fun bindDeleteTodoRouter(detailsRouter: DetailsRouter): IDeleteTodoRouter
 
 }

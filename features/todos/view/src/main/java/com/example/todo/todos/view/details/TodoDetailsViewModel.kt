@@ -12,6 +12,7 @@ import com.example.todo.base.view.navigation.route.IRoute
 import com.example.todo.todos.domain.model.Todo
 import com.example.todo.todos.domain.usecase.DeleteTodoUseCase
 import com.example.todo.todos.domain.usecase.GetTodoByIdUseCase
+import com.example.todo.todos.view.details.ITodoDetailsRouter.TodoDetailsRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -52,10 +53,16 @@ class TodoDetailsViewModel(
     }
 
     fun onDelete() {
-        viewModelScope.launch {
-            when (val response = deleteTodoUseCase(_todo.value!!)) {
-                is Result.Success -> routerDelegate.popRoute()
-                else -> Unit // TODO display error
+        routerDelegate.pushRoute(TodoDetailsRoute.DeleteTodoDialog)
+    }
+
+    fun onDeleteResult(result: Boolean) {
+        if (result) {
+            viewModelScope.launch {
+                when (val response = deleteTodoUseCase(_todo.value!!)) {
+                    is Result.Success -> routerDelegate.popRoute()
+                    else -> Unit // TODO display error
+                }
             }
         }
     }

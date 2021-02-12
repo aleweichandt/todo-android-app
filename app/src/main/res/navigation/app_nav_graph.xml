@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/app_nav_graph"
     app:startDestination="@id/todoListFragment">
+
+    <include app:graph="@navigation/details_nav_graph" />
 
     <fragment
         android:id="@+id/todoListFragment"
         android:name="com.example.todo.todos.view.list.TodoListFragment"
-        android:label="TodoListFragment">
+        android:label="TodoListFragment"
+        tools:layout="@layout/fragment_todo_list">
         <action
             android:id="@+id/action_to_form"
             app:destination="@id/todoFormFragment"
@@ -16,24 +20,12 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
-            android:id="@+id/action_to_details"
-            app:destination="@id/todoDetailsFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            android:id="@id/action_to_details"
+            app:destination="@id/details_nav_graph" />
     </fragment>
     <fragment
         android:id="@+id/todoFormFragment"
         android:name="com.example.todo.todos.view.form.TodoFormFragment"
-        android:label="TodoFormFragment" />
-    <fragment
-        android:id="@+id/todoDetailsFragment"
-        android:name="com.example.todo.todos.view.details.TodoDetailsFragment"
-        android:label="TodoDetailsFragment">
-        <argument
-            android:name="uuid"
-            app:argType="long" />
-    </fragment>
-
+        android:label="TodoFormFragment"
+        tools:layout="@layout/fragment_todo_form" />
 </navigation>
