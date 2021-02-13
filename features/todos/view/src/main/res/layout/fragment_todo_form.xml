@@ -54,6 +54,7 @@
                     android:id="@+id/todo_body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="text|textMultiLine"
                     android:minLines="2"
                     android:text="@={vieWModel.body}" />
 
@@ -63,9 +64,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="@{vieWModel.readyToSubmit}"
+                android:onClick="@{() -> vieWModel.onSubmit()}"
                 android:paddingBottom="8dp"
                 android:text="@string/button_submit"
-                android:onClick="@{() -> vieWModel.onSubmit()}"
                 app:layout_constraintBottom_toBottomOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

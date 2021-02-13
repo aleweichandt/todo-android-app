@@ -33,13 +33,23 @@ class TodoFormViewModel(
     val body = MutableLiveData("")
 
     fun onSubmit() {
-        viewModelScope.launch {
-            _readyToSubmit.value = false
-            when (val response = addTodoUseCase(Todo(title.value!!, body.value!!))) {
-                is Result.Success -> routerDelegate.popRoute()
-                is Result.Failure -> Unit // TODO handle error
+        if (isValidForm()) {
+            viewModelScope.launch {
+                _readyToSubmit.value = false
+                when (val response = addTodoUseCase(Todo(title.value!!, body.value!!))) {
+                    is Result.Success -> routerDelegate.popRoute()
+                    is Result.Failure -> Unit // TODO handle error
+                }
+                _readyToSubmit.value = true
             }
-            _readyToSubmit.value = true
+        } else {
+            // TODO handle form error
         }
+    }
+
+    private fun isValidForm(): Boolean {
+        val hasTitle = title.value?.isNotBlank() ?: false
+        val hasBody = body.value?.isNotBlank() ?: false
+        return hasTitle && hasBody
     }
 }
