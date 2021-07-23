@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/features/todos/domain" />
             <option value="$PROJECT_DIR$/features/todos/view" />
+            <option value="$PROJECT_DIR$/libs/base/data" />
             <option value="$PROJECT_DIR$/libs/base/domain" />
             <option value="$PROJECT_DIR$/libs/base/view" />
           </set>
