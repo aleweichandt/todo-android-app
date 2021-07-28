@@ -1,6 +1,7 @@
 package com.example.todo.todos.domain.di
 
 import com.example.todo.base.domain.IExceptionHandler
+import com.example.todo.todos.data.ITodoApi
 import com.example.todo.todos.domain.repository.TodoRepository
 import com.example.todo.todos.domain.usecase.*
 import dagger.Module
@@ -11,7 +12,7 @@ import javax.inject.Singleton
 class TodoUseCaseModule {
     @Provides
     @Singleton
-    fun provideTodosRepository() = TodoRepository()
+    fun provideTodosRepository(api: ITodoApi) = TodoRepository(api)
 
     @Provides
     fun provideGetAllTodosUseCase(repository: TodoRepository, handler: IExceptionHandler) =

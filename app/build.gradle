@@ -59,6 +59,7 @@ dependencies {
     implementation project(':baseView')
     implementation project(':todosView')
     implementation project(':todosDomain')
+    implementation project(':todosData')
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
