@@ -14,6 +14,9 @@ import com.example.todo.todos.domain.usecase.DeleteTodoUseCase
 import com.example.todo.todos.domain.usecase.GetTodoByIdUseCase
 import com.example.todo.todos.view.details.ITodoDetailsRouter.TodoDetailsRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -70,16 +73,21 @@ class TodoDetailsViewModel(
     private fun loadTodo() {
         viewModelScope.launch {
             uuid?.apply {
-                _loadingTodo.value = true
-                _readyToDelete.value = false
-                when (val response = getTodoByIdUseCase(this)) {
-                    is Result.Success -> {
-                        _todo.value = response.result
-                        _readyToDelete.value = true
+                getTodoByIdUseCase(this)
+                    .onStart {
+                        _loadingTodo.value = true
+                        _readyToDelete.value = false
                     }
-                    else -> Unit // TODO display error
-                }
-                _loadingTodo.value = false
+                    .onCompletion { _loadingTodo.value = false }
+                    .collect { response ->
+                        when (response) {
+                            is Result.Success -> {
+                                _todo.value = response.result
+                                _readyToDelete.value = true
+                            }
+                            else -> Unit // TODO display error
+                        }
+                    }
             }
         }
     }
