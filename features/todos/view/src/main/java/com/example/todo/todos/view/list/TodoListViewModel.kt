@@ -13,6 +13,9 @@ import com.example.todo.todos.domain.usecase.GetAllTodosUseCase
 import com.example.todo.todos.domain.usecase.SetTodoCompletionUseCase
 import com.example.todo.todos.view.list.ITodoListRouter.TodoListRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -62,12 +65,15 @@ class TodoListViewModel(
 
     private fun refresh(force: Boolean = false) {
         viewModelScope.launch {
-            _refreshing.value = true
-            when (val response = getAllTodosUseCase(force)) {
-                is Result.Success -> _todos.value = response.result
-                else -> Unit //TODO handle error
-            }
-            _refreshing.value = false
+            getAllTodosUseCase(force)
+                .onStart { _refreshing.value = true }
+                .onCompletion { _refreshing.value = false }
+                .collect { response ->
+                    when (response) {
+                        is Result.Success -> _todos.value = response.result
+                        else -> Unit //TODO handle error
+                    }
+                }
         }
     }
 }
