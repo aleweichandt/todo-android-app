@@ -44,6 +44,11 @@ dependencies {
 //    implementation "androidx.room:room-ktx:$room_version"
 
     api project(':baseData')
+    implementation project(':todosDomain')
+
+    // Dagger
+    implementation 'com.google.dagger:dagger:2.31.2'
+    kapt 'com.google.dagger:dagger-compiler:2.31.2'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
