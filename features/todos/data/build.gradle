@@ -1,7 +1,8 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -9,13 +10,13 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.example.todo.todos.data"
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -43,12 +44,12 @@ dependencies {
 //    kapt "androidx.room:room-compiler:$room_version"
 //    implementation "androidx.room:room-ktx:$room_version"
 
-    api project(':baseData')
+    implementation project(':baseData')
     implementation project(':todosDomain')
 
-    // Dagger
-    implementation 'com.google.dagger:dagger:2.31.2'
-    kapt 'com.google.dagger:dagger-compiler:2.31.2'
+    //Hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
