@@ -13,7 +13,11 @@ class GetTodoByIdUseCase(
     private val repository: TodoRepository,
     handler: IExceptionHandler,
     dispatcher: CoroutineDispatcher = Dispatchers.IO
-) : FlowUseCase<Long, Todo>(handler, dispatcher) {
-    override suspend fun performAction(param: Long) =
-        repository.getTodoById(param).map { Result.fromNullable(it) }
+) : FlowUseCase<GetTodoByIdUseCase.Request, Todo>(handler, dispatcher) {
+    data class Request(
+        val uuid: Long,
+        val force: Boolean = false
+    )
+    override suspend fun performAction(param: Request) =
+        repository.getTodoById(param.uuid, param.force).map { Result.fromNullable(it) }
 }

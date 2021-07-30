@@ -20,11 +20,11 @@ class TodoRepository(
         localSource::deleteAllTodos
     )
 
-    suspend fun getAllTodos(): Flow<List<Todo>?> =
-        resourceGroup.query(Unit)
+    suspend fun getAllTodos(force: Boolean): Flow<List<Todo>?> =
+        resourceGroup.query(Unit, force)
 
-    suspend fun getTodoById(id: Long): Flow<Todo?> =
-        resourceGroup.queryByKey(id, Unit)
+    suspend fun getTodoById(id: Long, force: Boolean): Flow<Todo?> =
+        resourceGroup.queryByKey(id, Unit, force)
 
     suspend fun addTodo(todo: Todo): Boolean? =
         remoteSource.addTodo(todo).also { resourceGroup.evict() }
