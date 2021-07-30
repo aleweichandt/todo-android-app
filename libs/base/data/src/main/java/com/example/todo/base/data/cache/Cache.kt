@@ -2,7 +2,7 @@ package com.example.todo.base.data.cache
 
 import com.example.todo.base.domain.IExceptionHandler
 
-class Cache(
+abstract class Cache(
     private val exceptionHandler: IExceptionHandler
 ) {
     protected suspend fun <T> runQuery(query: suspend () -> T) =
