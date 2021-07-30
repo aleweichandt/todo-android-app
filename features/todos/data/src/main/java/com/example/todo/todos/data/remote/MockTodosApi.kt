@@ -1,5 +1,6 @@
-package com.example.todo.todos.data
+package com.example.todo.todos.data.remote
 
+import com.example.todo.todos.data.ITodoApi
 import com.example.todo.todos.domain.model.Todo
 
 class MockTodosApi: ITodoApi {
