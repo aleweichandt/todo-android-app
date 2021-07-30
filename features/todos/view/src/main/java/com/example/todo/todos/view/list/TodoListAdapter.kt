@@ -40,7 +40,9 @@ class TodoListAdapter(
         fun bind(todo: Todo) {
             bindings.item = todo
             bindings.complete.setOnCheckedChangeListener { _, isChecked ->
-                itemCallback.onItemCompletionChanged(todo, isChecked)
+                if(isChecked != todo.completed) {
+                    itemCallback.onItemCompletionChanged(todo, isChecked)
+                }
             }
             bindings.root.setOnClickListener { itemCallback.onItemSelected(todo) }
             bindings.executePendingBindings()
