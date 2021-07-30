@@ -52,7 +52,7 @@ class TodoDetailsViewModel(
     }
 
     override fun onRefresh() {
-        loadTodo()
+        loadTodo(true)
     }
 
     fun onDelete() {
@@ -70,10 +70,10 @@ class TodoDetailsViewModel(
         }
     }
 
-    private fun loadTodo() {
+    private fun loadTodo(force: Boolean = false) {
         viewModelScope.launch {
             uuid?.apply {
-                getTodoByIdUseCase(this)
+                getTodoByIdUseCase(GetTodoByIdUseCase.Request(this, force))
                     .onStart {
                         _loadingTodo.value = true
                         _readyToDelete.value = false

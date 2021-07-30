@@ -16,5 +16,5 @@ class GetAllTodosUseCase(
     dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : FlowUseCase<Boolean, List<Todo>>(handler, dispatcher) {
     override suspend fun performAction(param: Boolean): Flow<Result<List<Todo>>> =
-        repository.getAllTodos().map { Result.fromNullable(it) }
+        repository.getAllTodos(param).map { Result.fromNullable(it) }
 }
